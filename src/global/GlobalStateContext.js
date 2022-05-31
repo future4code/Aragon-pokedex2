@@ -1,5 +1,5 @@
-import React from "react"
+import { createContext } from "react"
 
-const GlobalStateContext = React.createContext() // por que React? (dúvida para plantão)
+const GlobalStateContext = createContext() 
 
 export default GlobalStateContext
