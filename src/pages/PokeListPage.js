@@ -1,30 +1,37 @@
-import Header from "../components/Header"
-import PokeCard from "../components/PokeCard"
-import useRequestData from "../hooks/useRequestData"
+import { useContext, useEffect } from "react";
+import Header from "../components/Header";
+import PokeCard from "../components/PokeCard";
+import GlobalStateContext from "../global/GlobalStateContext";
 
 function PokeListPage() {
+  const { states, getters } = useContext(GlobalStateContext);
 
-    const [pokeList] = useRequestData('list?limit=20&offset=0', [])
+  const { pokeList } = states;
 
-    const showPokeList = pokeList[0] ? pokeList.map((pokemon) => {
-      return (
-        <PokeCard 
-          key={pokemon.id}
-          pokemon={pokemon}        
-        />
-      ) 
-    }) : <p>Carregando...</p>
+  const { getPokeList } = getters;
 
-    return (
-      <>
-      <Header actualPage={"pokelist"}/>
+  useEffect(() => {
+    getPokeList();
+  }, []);
+
+  const showPokeList = pokeList[0] ? (
+    pokeList.map((pokemon) => {
+      return <PokeCard key={pokemon.id} pokemon={pokemon} />;
+    })
+  ) : (
+    <p>Carregando...</p>
+  );
+
+  return (
+    <>
+      <Header actualPage={"pokelist"} />
       <hr />
       <main>
         <h1>Lista de Pokemons</h1>
         {showPokeList}
       </main>
-      </>
-    )
-  }
+    </>
+  );
+}
 
-  export default PokeListPage
+export default PokeListPage;
