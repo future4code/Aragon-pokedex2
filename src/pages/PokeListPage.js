@@ -1,12 +1,35 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Header from "../components/Header";
 import PokeCard from "../components/PokeCard";
-import { GlobalContext } from "../global/GlobalState";
+import GlobalStateContext from "../global/GlobalStateContext";
 
 function PokeListPage() {
-  const context = useContext(GlobalContext);
 
-  const { pokemons } = context.states;
+  const {states, getters} = useContext(GlobalStateContext);
+
+  const { pokeList, pokemons } = states;
+
+  const { getPokeList, getAllPokeDetails } = getters;
+
+  useEffect(() => {
+    if (!pokeList.length) {
+      getPokeList();
+    } else {
+      getAllPokeDetails();
+    }
+  }, [pokeList]);
+
+  const showPokeList = pokemons[0] ? (
+    pokemons.map((pokemon) => {
+      return <PokeCard 
+      key={pokemon.id} 
+      pokemon={pokemon} 
+      actualPage={"pokelist"}
+      />;
+    })
+  ) : (
+    <p>Carregando...</p>
+  );
 
   return (
     <>
@@ -14,9 +37,7 @@ function PokeListPage() {
       <hr />
       <main>
         <h1>Lista de Pokemons</h1>
-        {pokemons.map((pokemon) => (
-          <PokeCard key={pokemon.id} pokemon={pokemon} />
-        ))}
+        {showPokeList}
       </main>
     </>
   );

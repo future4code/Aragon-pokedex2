@@ -1,48 +1,67 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { BASE_URL } from "../constants/urls";
+import GlobalStateContext from "./GlobalStateContext";
 
-export const GlobalContext = createContext();
+const GlobalState = (props) => {
 
-function GlobalState(props) {
+  const [pokeList, setPokeList] = useState([]);
+
+  const [pokemon, setPokemon] = useState({});
 
   const [pokemons, setPokemons] = useState([]);
 
-  const getPokemons = async () => {
+  const [pokedex, setPokedex] = useState([]);
+
+  const getPokeList = () => {
+    axios
+      .get(`${BASE_URL}/list?limit=20&offset=0`)
+      .then((res) => setPokeList(res.data))
+      .catch((err) => console.error(err.message));
+  };
+
+  const getPokeDetails = async (pokename) => {
     try {
-      const res = await axios.get(`${BASE_URL}/list?limit=20&offset=0`)
-
-      const requests = res.data.map((item) =>
-        axios.get(`${BASE_URL}/${item.name}`)
-      )
-
-      const responses = await Promise.all(requests)
-      
-      const list = responses.map((item) => item.data)
-      setPokemons(list)
-      
+        const res = await axios.get(`${BASE_URL}/${pokename}`)
+        setPokemon(res.data)
+        
     } catch (err) {
-      console.error("Erro ao buscar lista de Pokemons")
+        console.error(err.message)
     }
-  }
+  };
 
-  useEffect(() => {
-    getPokemons()                      
-  },[])
+  const getAllPokeDetails = () => {
+    const newList = [];
+    pokeList.forEach((pokemon) => {
+      axios
+        .get(`${BASE_URL}/${pokemon.name}`)
+        .then((res) => {
+          newList.push(res.data);
 
-const states = { pokemons : pokemons };                                                                                     
+          if (newList.length === 20) {
+            const orderedList = newList.sort((a, b) => {
+              return a.id - b.id;
+            });
+            setPokemons(orderedList);
+          }
+        })
+        .catch((err) => {
+          console.error(err.message);
+        });
+    });
+  };
 
-const setters = { setPokemons : setPokemons };
+  const states = { pokeList, pokemon, pokemons, pokedex };
 
-const getters = { getPokemons : getPokemons };
+  const setters = { setPokeList, setPokemon, setPokemons, setPokedex };
 
-const context = ( states, setters, getters )
+  const getters = { getPokeList, getPokeDetails, getAllPokeDetails };
 
-return (
-  <GlobalContext.Provider value={context}>
-    {props.children}
-  </GlobalContext.Provider>
-)
+  return (
+    <GlobalStateContext.Provider value={{ states, setters, getters }}>
+      {props.children}
+    </GlobalStateContext.Provider>
+  );
 };
 
-export default GlobalState
+export default GlobalState;
