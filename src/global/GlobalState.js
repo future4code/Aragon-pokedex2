@@ -1,38 +1,48 @@
 import axios from "axios";
-import { useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { BASE_URL } from "../constants/urls";
-import GlobalStateContext from "./GlobalStateContext";
 
-const GlobalState = (props) => {
-  const [pokeList, setPokeList] = useState([]);
+export const GlobalContext = createContext();
 
-  const [pokemon, setPokemon] = useState({});
+function GlobalState(props) {
 
-  const getPokeList = () => {
-    axios
-      .get(`${BASE_URL}/list?limit=20&offset=0`)
-      .then((res) => setPokeList(res.data))
-      .catch((err) => console.error(err.message));
-  };
+  const [pokemons, setPokemons] = useState([]);
 
-  const getPokeDetails = (pokename) => {
-    axios
-      .get(`${BASE_URL}/${pokename}`)
-      .then((res) => setPokemon(res.data))
-      .catch((err) => console.error(err.message));
-  };
+  const getPokemons = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/list?limit=20&offset=0`)
 
-  const states = { pokeList, pokemon };
+      const requests = res.data.map((item) =>
+        axios.get(`${BASE_URL}/${item.name}`)
+      )
 
-  const setters = { setPokeList, setPokemon };
+      const responses = await Promise.all(requests)
+      
+      const list = responses.map((item) => item.data)
+      setPokemons(list)
+      
+    } catch (err) {
+      console.error("Erro ao buscar lista de Pokemons")
+    }
+  }
 
-  const getters = { getPokeList, getPokeDetails };
+  useEffect(() => {
+    getPokemons()                      
+  },[])
 
-  return (
-      <GlobalStateContext.Provider value={{ states, setters, getters }}>
-      {props.children}
-      </GlobalStateContext.Provider>
-  )
+const states = { pokemons : pokemons };                                                                                     
+
+const setters = { setPokemons : setPokemons };
+
+const getters = { getPokemons : getPokemons };
+
+const context = ( states, setters, getters )
+
+return (
+  <GlobalContext.Provider value={context}>
+    {props.children}
+  </GlobalContext.Provider>
+)
 };
 
 export default GlobalState
