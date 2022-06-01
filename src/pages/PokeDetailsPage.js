@@ -1,33 +1,33 @@
 import { useContext, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import Header from "../components/Header"
-import GlobalStateContext from "../global/GlobalStateContext"
+import { GlobalContext } from "../global/GlobalState"
 
 export function PokeDetailsPage() {
 
     const params = useParams();
 
-    const { states, getters } = useContext(GlobalStateContext);
+    const context = useContext(GlobalContext);
 
-    const { pokemon } = states;
+    const { pokemons } = context.states;
 
-    const { getPokeDetails } = getters;
+    const { getPokemons } = context.getters;
 
     useEffect(() => {
       getPokeDetails(params.pokeName)
     },[])
 
-    const pokeDetail = pokemon.name ? (
+    const pokeDetail = pokemons.name ? (
       <>
         <figure>
-          <h2>{pokemon.name.toUpperCase()}</h2>
-          <img src={pokemon.images.front} alt={`${pokemon.name} de frente`} />
-          <img src={pokemon.images.back} alt={`${pokemon.name} de costas`} />
+          <h2>{pokemons.name.toUpperCase()}</h2>
+          <img src={pokemons.images.front} alt={`${pokemons.name} de frente`} />
+          <img src={pokemons.images.back} alt={`${pokemons.name} de costas`} />
         </figure>
 
         <section>
           <h2>Status: </h2>
-          {pokemon.status.map((stat) => {
+          {pokemons.status.map((stat) => {
             return (
               <div key={stat["status_name"]}>
                 <span>{stat["status_name"].toUpperCase()}</span>
@@ -40,7 +40,7 @@ export function PokeDetailsPage() {
         
         <section>
           <h2>Tipos: </h2>
-          {pokemon.types.map((type) => {
+          {pokemons.types.map((type) => {
             return (
               <li key={type}>{type}</li>
             )
@@ -49,7 +49,7 @@ export function PokeDetailsPage() {
 
         <section>
           <h2>Habilidades: </h2>
-          {pokemon.abilities.filter((ability, index) => {
+          {pokemons.abilities.filter((ability, index) => {
             if(index < 5) {
               return ability
             }
