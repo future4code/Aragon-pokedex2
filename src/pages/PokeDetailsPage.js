@@ -66,7 +66,6 @@ export function PokeDetailsPage() {
     return (
       <>
         <Header actualPage={"pokedetails"} />
-        <hr />
         <main>
             <h1>PokeInfos</h1>
             {pokeDetail}
