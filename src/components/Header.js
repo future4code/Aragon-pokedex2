@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { navigateToPokedexPage, navigateToPokeListPage, navigateToPreviousPage } from "../routes/coordinator";
+import HeaderStyle from './HeaderStyle'
+import img from '../assets/logo.png'
 
 function Header(props) {
   const navigate = useNavigate();
@@ -9,10 +11,12 @@ function Header(props) {
       case "pokelist":
         return (
           <>
-            <h1>Pokemons</h1>
+            <figure>
+              <img src={img} alt="logo Pokemon"/>
+            </figure>
             <nav>
               <button onClick={() => navigateToPokedexPage(navigate)}>
-                Ir para Pokedex
+                Pokedex
               </button>
             </nav>
           </>
@@ -22,7 +26,7 @@ function Header(props) {
             <>
               <h1>Pokedex</h1>
               <nav>
-                <button onClick={() => navigateToPokeListPage(navigate)} >Ir para lista de Pokemons</button>
+                <button onClick={() => navigateToPokeListPage(navigate)} >Página Inicial</button>
               </nav>
             </>
           )
@@ -41,11 +45,11 @@ function Header(props) {
   }
 
   return (
-    <>
+    <HeaderStyle>
       <header>
         {renderHeader()}
       </header>
-    </>
+    </HeaderStyle>
   )
 }
 

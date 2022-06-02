@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { navigateToPokeDetailsPage } from "../routes/coordinator";
 import GlobalStateContext from "../global/GlobalStateContext";
+import PokeCardStyle from "./PokeCardStyle";
 
 function PokeCard(props) {
   const navigate = useNavigate();
@@ -24,26 +25,34 @@ function PokeCard(props) {
     setPokedex(orderedPokedex);
   };
 
+  const removeFromPokedex = () => {
+    const newPokedex = pokedex.filter((poke) => {
+      return id !== poke.id
+    })
+    setPokedex(newPokedex)
+  }
+
   return (
-    <section>
-      <span>{name.toUpperCase()} - </span>
-      <span>N°: {id}</span>
+    <PokeCardStyle>
+      <span className="id-card">#{id}</span>
+      
       <figure>
-        <img src={images.front} alt={`Foto frontal de ${name}`} />
+        <img id="img-pokecard" src={images.front} alt={`Foto frontal de ${name}`} />
       </figure>
-      <br />
-      <br />
+
+      <p className="nome-pokemon">{name.toUpperCase()}</p>
+
+      <nav className="botoes-container">
       {props.actualPage === "pokelist" ? 
-        <button onClick={addToPokedex}>Adicionar a Pokedex</button>
-       : <button>Remover da Pokedex</button>
+        <button onClick={addToPokedex}>Add à Pokedex</button>
+       : <button onClick={removeFromPokedex}>Remover</button>
       }
       <button onClick={() => navigateToPokeDetailsPage(navigate, name)}>
-        Ver detalhes
+        Detalhes
       </button>
-      <br />
-      <br />
-      <hr />
-    </section>
+      </nav>
+
+    </PokeCardStyle>
   );
 }
 

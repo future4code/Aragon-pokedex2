@@ -2,9 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { BASE_URL } from "../constants/urls";
 import GlobalStateContext from "./GlobalStateContext";
+import { limit } from "../constants/pagination";
 
 const GlobalState = (props) => {
-
   const [pokeList, setPokeList] = useState([]);
 
   const [pokemon, setPokemon] = useState({});
@@ -13,26 +13,45 @@ const GlobalState = (props) => {
 
   const [pokedex, setPokedex] = useState([]);
 
-  const getPokeList = () => {
+  const [page, setPage] = useState(1);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getPokeList = (currentPage) => {
+    setIsLoading(true);
+
     axios
-      .get(`${BASE_URL}/list?limit=20&offset=0`)
-      .then((res) => setPokeList(res.data))
-      .catch((err) => console.error(err.message));
+      .get(
+        `${BASE_URL}/list?limit=${limit}&offset=${limit * (currentPage - 1)}`
+      )
+      .then((res) => {
+        setPokeList(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err.message);
+        setIsLoading(false);
+      });
   };
 
   const getPokeDetails = async (pokename) => {
     try {
-        const res = await axios.get(`${BASE_URL}/${pokename}`)
-        setPokemon(res.data)
-        
+      setIsLoading(true);
+
+      const res = await axios.get(`${BASE_URL}/${pokename}`);
+      setPokemon(res.data);
+      setIsLoading(false);
     } catch (err) {
-        console.error(err.message)
+      console.error(err.message);
+      setIsLoading(false);
     }
   };
 
   const getAllPokeDetails = () => {
     const newList = [];
     pokeList.forEach((pokemon) => {
+      setIsLoading(true);
+
       axios
         .get(`${BASE_URL}/${pokemon.name}`)
         .then((res) => {
@@ -43,17 +62,19 @@ const GlobalState = (props) => {
               return a.id - b.id;
             });
             setPokemons(orderedList);
+            setIsLoading(false);
           }
         })
         .catch((err) => {
           console.error(err.message);
+          setIsLoading(false);
         });
     });
   };
 
-  const states = { pokeList, pokemon, pokemons, pokedex };
+  const states = { pokeList, pokemon, pokemons, pokedex, page, isLoading };
 
-  const setters = { setPokeList, setPokemon, setPokemons, setPokedex };
+  const setters = { setPokeList, setPokemon, setPokemons, setPokedex, setPage, setIsLoading };
 
   const getters = { getPokeList, getPokeDetails, getAllPokeDetails };
 
