@@ -56,18 +56,29 @@ function PokeListPage() {
     <PokeListPageStyle>
       <Header actualPage={"pokelist"} />
       <main>
-        <nav>
-          <h4>Selecione uma página</h4>
+        
+        <nav className="container-nvg">
           {page !== 1 && (
-            <button onClick={() => changePage(-1)}>Voltar página</button>
+            <button className="navigation-btn" onClick={() => changePage(-1)}>
+              &#171;
+            </button>
           )}
-          <span> Página {page} </span>
+          <span>Página {page}</span>
           {pokeList.length && (
-            <button onClick={() => changePage(1)}>Próxima página</button>
+            <button className="navigation-btn" onClick={() => changePage(1)}>
+              &#187;
+            </button>
           )}
         </nav>
+
         <nav className="container-cards">{showPokeList}</nav>
+
       </main>
+
+      <footer className="footer">
+       <button id="top-btn">Voltar ao topo</button>
+      </footer>
+
     </PokeListPageStyle>
   );
 }

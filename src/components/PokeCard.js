@@ -16,7 +16,6 @@ function PokeCard(props) {
   const { id, name, images } = props.pokemon;
 
   const addToPokedex = () => {
-
     const newPokedex = [...pokedex, props.pokemon];
 
     const orderedPokedex = newPokedex.sort((a, b) => {
@@ -27,31 +26,35 @@ function PokeCard(props) {
 
   const removeFromPokedex = () => {
     const newPokedex = pokedex.filter((poke) => {
-      return id !== poke.id
-    })
-    setPokedex(newPokedex)
-  }
+      return id !== poke.id;
+    });
+    setPokedex(newPokedex);
+  };
 
   return (
     <PokeCardStyle>
       <span className="id-card">#{id}</span>
-      
+
       <figure>
-        <img id="img-pokecard" src={images.front} alt={`Foto frontal de ${name}`} />
+        <img
+          id="img-pokecard"
+          src={images.front}
+          alt={`Foto frontal de ${name}`}
+        />
       </figure>
 
       <p className="nome-pokemon">{name.toUpperCase()}</p>
 
       <nav className="botoes-container">
-      {props.actualPage === "pokelist" ? 
-        <button onClick={addToPokedex}>Add à Pokedex</button>
-       : <button onClick={removeFromPokedex}>Remover</button>
-      }
-      <button onClick={() => navigateToPokeDetailsPage(navigate, name)}>
-        Detalhes
-      </button>
+        {props.actualPage === "pokelist" ? (
+          <button onClick={addToPokedex}>ADD À POKEDEX</button>
+        ) : (
+          <button onClick={removeFromPokedex}>REMOVER</button>
+        )}
+        <button onClick={() => navigateToPokeDetailsPage(navigate, name)}>
+          DETALHES
+        </button>
       </nav>
-
     </PokeCardStyle>
   );
 }
