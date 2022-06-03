@@ -5,20 +5,29 @@ const HeaderStyle = styled.section`
   padding: 0;
   box-sizing: border-box;
   text-align: center;
-  height: 30vh;
- 
+  height: 42vh;
+
   img {
-      margin: 0;
-      width: 20%;
+    margin: 1em;
+    width: 25%;
   }
 
-  button {
-    height: 5vh;
-    width: 9vw;
-    border-radius: 10px;
+  .botao-pokedex {
+    background-color: firebrick;
+    color: #ffcc03;
     border: none;
-    box-shadow: 0 0 10px 0 black;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 100%;
+    width: 10vw;
+    height: 7vh;
+    border: 1px solid white;
+
+    &:hover {
+      border: 2px solid white;
+      border-radius: 10px;
+    }
   }
-`
+`;
 
 export default HeaderStyle;

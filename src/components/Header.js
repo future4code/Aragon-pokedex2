@@ -1,7 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { navigateToPokedexPage, navigateToPokeListPage, navigateToPreviousPage } from "../routes/coordinator";
-import HeaderStyle from './HeaderStyle'
-import img from '../assets/logo.png'
+import {
+  navigateToPokedexPage,
+  navigateToPokeListPage,
+  navigateToPreviousPage,
+} from "../routes/coordinator";
+import HeaderStyle from "./HeaderStyle";
+import img from "../assets/logo.png";
+import logo from "../assets/pokedex.png";
 
 function Header(props) {
   const navigate = useNavigate();
@@ -12,45 +17,48 @@ function Header(props) {
         return (
           <>
             <figure>
-              <img src={img} alt="logo Pokemon"/>
+              <img src={img} alt="Pokemon logo" />
             </figure>
             <nav>
-              <button onClick={() => navigateToPokedexPage(navigate)}>
+              <button className="botao-pokedex" onClick={() => navigateToPokedexPage(navigate)}>
                 Pokedex
               </button>
             </nav>
           </>
-        )
-        case "pokedex":
-          return (
-            <>
-              <h1>Pokedex</h1>
-              <nav>
-                <button onClick={() => navigateToPokeListPage(navigate)} >Página Inicial</button>
-              </nav>
-            </>
-          )
-          case "pokedetails":
-            return (
-              <>
-                <h1>Detalhes</h1>
-                <nav>
-                  <button onClick={() => navigateToPreviousPage(navigate)} >Voltar</button>
-                </nav>
-              </>
-            )
-            default:
-              return
+        );
+      case "pokedex":
+        return (
+          <>
+            <figure>
+              <img src={logo} alt="pokedex logo" />
+            </figure>
+            <nav>
+              <button onClick={() => navigateToPokeListPage(navigate)}>
+                Voltar
+              </button>
+            </nav>
+          </>
+        );
+      case "pokedetails":
+        return (
+          <>
+            <nav>
+              <button onClick={() => navigateToPreviousPage(navigate)}>
+                Voltar
+              </button>
+            </nav>
+          </>
+        );
+      default:
+        return;
     }
-  }
+  };
 
   return (
     <HeaderStyle>
-      <header>
-        {renderHeader()}
-      </header>
+      <header>{renderHeader()}</header>
     </HeaderStyle>
-  )
+  );
 }
 
 export default Header;

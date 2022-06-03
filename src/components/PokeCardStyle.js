@@ -2,52 +2,59 @@ import styled from "styled-components";
 
 const PokeCardStyle = styled.section`
   border-radius: 10px;
-  box-shadow: 0 0 5px 0 grey;
+  box-shadow: black 5px 5px 5px 0;
   text-align: center;
-  background-color: white;
+  background-color: snow;
   height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
- 
-.id-card {
-    display: flex;
-    flex-direction: row;
+
+  .id-card {
+    padding: 3px;
     justify-content: start;
-    width: 22px;
-    background-color: green;
-    color: white;
-    border-radius: 5px 0 5px 0
-    }
+    width: 5vw;
+    background-color: #007AC1;
+    color: #ffcc03;
+    border-radius: 10px 0 10px 0;
+  }
 
-#img-pokecard {
+  #img-pokecard {
     width: 50%;
-}
+  }
 
-.nome-pokemon {
-    color: darkblue;
-    text-shadow: 0 0 10px 0 black;
+  .nome-pokemon {
+    color: #ffcc03;
+    text-shadow: 2px 1px #007AC1;
     font-size: 1.5rem;
-    margin-bottom: 10px
-}
+    margin-bottom: 10px;
+  }
 
-.botoes-container {
+  .botoes-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     column-gap: 25px;
     padding-bottom: 10px;
     margin: auto;
-}
+  }
 
-button {
-    height: 5vh;
-    width: 9vw;
-    border-radius: 10px;
-    border: none;
-    color: darkblue;
-    box-shadow: 0 0 10px 0 green
-}
-`
+  button {
+    height: 4.5vh;
+    width: 8vw;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 60%;
+    border: 1px solid steelblue;
+    color: steelblue;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid steelblue;
+      cursor: pointer;
+      transition: 0.3s;
+      transform: scale(1.1);
+    }
+  }
+`;
 
-export default PokeCardStyle
+export default PokeCardStyle;
