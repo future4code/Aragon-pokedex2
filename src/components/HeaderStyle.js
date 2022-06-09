@@ -1,15 +1,26 @@
 import styled from "styled-components";
 
 const HeaderStyle = styled.section`
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
   text-align: center;
-  height: 42vh;
+  height: 44vh;
 
-  img {
+  .logo-pokemon {
     margin: 1em;
-    width: 25%;
+    width: 30%;
+  }
+
+  .gif-pikachu {
+    width: 5vw;
+  }
+
+  .pokedex-logo {
+    margin: 2em;
+    width: 40%;
+  }
+
+  .pokedex-gif {
+      width: 5vw;
+      border-radius: 20px; 
   }
 
   .botao-pokedex {

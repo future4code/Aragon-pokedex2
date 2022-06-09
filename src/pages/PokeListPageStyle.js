@@ -2,15 +2,23 @@ import styled from "styled-components";
 
 const PokeListPageStyle = styled.section`
   background-color: firebrick;
+  width: 100%;
+  height: 100%;
 
   .container-cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 10px;
-    margin: 10px;
+    gap: 20px;
+    margin: 20px;
   }
 
-  .ball {
+  .container-loading {
+    grid-column: 2/4;
+    margin-top: 40px;
+  }
+
+  #loading-img {
+    margin: auto;
     border: 10px solid lightgray;
     border-radius: 50%;
     border-top: 10px solid lightgray;
@@ -43,25 +51,33 @@ const PokeListPageStyle = styled.section`
   footer {
     background-color: firebrick;
     text-align: center;
-    height: 20vh;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end; 
+    padding-bottom: 20px;
+    height: 100vh ;
   }
 
-  #top-btn {
-    margin-top: 20px;
+  .topo {
+    padding: 10px;
+    text-decoration-line: none;
+    margin-top: 5vh;
     background-color: firebrick;
     color: #ffcc03;
     border: none;
     border-radius: 10px;
     font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 80%;
-    width: 10vw;
+    width: 12vw;
     height: 7vh;
     border: 1px solid white;
 
-    &:hover::after {
+        &:hover {
       border: 2px solid white;
       border-radius: 10px;
-      transition: margin-top 250ms;
     }
   }
 
@@ -82,7 +98,12 @@ const PokeListPageStyle = styled.section`
       width: 3vw;
       height: 5vh;
       font-size: 100%;
+         &:hover {
+            box-shadow: 2px 2px 2px 0 black;
+            border: 2px solid dodgerblue
+      }
   }
+
 `
 
 export default PokeListPageStyle;
