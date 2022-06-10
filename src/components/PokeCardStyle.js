@@ -5,10 +5,12 @@ const PokeCardStyle = styled.section`
   box-shadow: black 5px 5px 5px 0;
   text-align: center;
   background-color: snow;
-  height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+    &:hover {
+        background-color: aliceblue;
+    }
 
   .id-card {
     padding: 3px;
@@ -26,6 +28,7 @@ const PokeCardStyle = styled.section`
   .nome-pokemon {
     color: #ffcc03;
     text-shadow: 2px 1px #007AC1;
+    font-weight: bold;
     font-size: 1.5rem;
     margin-bottom: 10px;
   }

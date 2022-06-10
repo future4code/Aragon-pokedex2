@@ -3,6 +3,8 @@ import Header from "../components/Header";
 import PokeCard from "../components/PokeCard";
 import GlobalStateContext from "../global/GlobalStateContext";
 import PokeListPageStyle from "./PokeListPageStyle";
+import poster from "../assets/poster.png"
+import video from "../assets/video.mp4"
 
 function PokeListPage() {
   const { states, setters, getters } = useContext(GlobalStateContext);
@@ -49,7 +51,9 @@ function PokeListPage() {
           );
         })
     ) : (
-      <p className="ball"></p>
+      <div className="container-loading">
+      <p id="loading-img" className="ball"></p>
+      </div>
     );
 
   return (
@@ -63,7 +67,7 @@ function PokeListPage() {
               &#171;
             </button>
           )}
-          <span>Página {page}</span>
+          <span className="page-number">Página {page}</span>
           {pokeList.length && (
             <button className="navigation-btn" onClick={() => changePage(1)}>
               &#187;
@@ -76,7 +80,10 @@ function PokeListPage() {
       </main>
 
       <footer className="footer">
-       <button id="top-btn">Voltar ao topo</button>
+       <video width="700" poster={poster} controls autoplay>
+            <source src={video} type="video/mp4"></source>
+          </ video>
+       <a className="topo" href="#" >VOLTAR AO TOPO</a>
       </footer>
 
     </PokeListPageStyle>

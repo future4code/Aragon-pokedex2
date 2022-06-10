@@ -7,6 +7,8 @@ import {
 import HeaderStyle from "./HeaderStyle";
 import img from "../assets/logo.png";
 import logo from "../assets/pokedex.png";
+import gif from "../assets/pikachu-oi.gif";
+import pokedex from "../assets/pokedex.gif"
 
 function Header(props) {
   const navigate = useNavigate();
@@ -17,11 +19,27 @@ function Header(props) {
         return (
           <>
             <figure>
-              <img src={img} alt="Pokemon logo" />
+              <img
+                className="gif-pikachu"
+                src={gif}
+                alt="gif do Pikachu dando oi"
+              />
+              <img className="logo-pokemon" 
+              src={img} 
+              alt="Pokemon logo" 
+              />
+              <img
+                className="gif-pikachu"
+                src={gif}
+                alt="gif do Pikachu dando oi"
+              />
             </figure>
             <nav>
-              <button className="botao-pokedex" onClick={() => navigateToPokedexPage(navigate)}>
-                Pokedex
+              <button
+                className="botao-pokedex"
+                onClick={() => navigateToPokedexPage(navigate)}
+              >
+                POKEDEX
               </button>
             </nav>
           </>
@@ -30,11 +48,28 @@ function Header(props) {
         return (
           <>
             <figure>
-              <img src={logo} alt="pokedex logo" />
+              <img
+                className="pokedex-gif"
+                src={pokedex}
+                alt="gif de um pokedex"
+              />
+              <img 
+              className="pokedex-logo" 
+              src={logo} 
+              alt="pokedex logo" 
+              />
+              <img
+                className="pokedex-gif"
+                src={pokedex}
+                alt="gif de um pokedex"
+              />
             </figure>
             <nav>
-              <button onClick={() => navigateToPokeListPage(navigate)}>
-                Voltar
+              <button
+                className="botao-pokedex"
+                onClick={() => navigateToPokeListPage(navigate)}
+              >
+                VOLTAR
               </button>
             </nav>
           </>
@@ -43,8 +78,11 @@ function Header(props) {
         return (
           <>
             <nav>
-              <button onClick={() => navigateToPreviousPage(navigate)}>
-                Voltar
+              <button
+                className="botao-pokedex"
+                onClick={() => navigateToPreviousPage(navigate)}
+              >
+                VOLTAR
               </button>
             </nav>
           </>
