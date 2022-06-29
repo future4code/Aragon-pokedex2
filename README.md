@@ -1,16 +1,15 @@
 # POKEDEX
 
 Nome dos integrantes: 
-- Pessoa 1
-- Pessoa 2
-- Pessoa 3
+- Elizanea Campelo
+- Marcio Vignoli de Lima
+- Thiago Vernizzi Silva
 
-Link do Surge: www.link.com.br
+Link do Surge: http://tasty-tent.surge.sh
 
-O que funciona:
-- Item 1
-- Item 2
+O que funciona
+Renderizações condicionais no header, listar pokemons através da API, paginação, funcionalidades nos botões add à pokedex, exibir detalhes, ir para pokedex, remover item
+da pokedex, botão voltar ao topo.
 
-O que não funciona: 
-- Item 3
-- Item 4
+O que não funciona
+Estilização responsiva para mobile.
